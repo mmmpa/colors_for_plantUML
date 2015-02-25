@@ -1,0 +1,23 @@
+@startuml{example.png}
+!include color.inc
+
+title <size:18>クーポン発行フロー</size>
+
+(*) --> "発行情報を登録/変更"
+--> "情報入力フォーム" as input  <<input>>
+--> "入力内容の確認"
+--> if "" then
+	note right:入力 OK？
+	--> [はい] if "" then
+		note right:割引券発行済み？
+		--> [はい] "失敗" <<fail>>
+	else
+		--> [いいえ] "「割引券」自動登録"
+		--> "登録完了" <<page>>
+	endif
+else
+	-u-> [いいえ] input
+endif
+
+"登録完了" --> (*)
+@enduml
